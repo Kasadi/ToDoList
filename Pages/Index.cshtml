@@ -1,0 +1,49 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">To-Do-List</h1>
+    <div class="container p-3">
+
+        <div class="row pt-4">
+            <div class="col-12">
+                <a asp-page="CreateToDoList" class="float-end btn btn-primary">Add New List</a>
+            </div>
+        </div>
+
+        @{
+            foreach (var list in Model.ToDoLists)
+            {
+                <table>
+                    <thead>
+                        <tr width="90%">
+                            <th>@list.Name</th>
+                        </tr>
+                        <tr width="10%">
+                        <th><a asp-page="CreateItem">Add Item</a></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in list.Items)
+                        {
+                            <tr>
+                                <td width="5%">
+                                    <input type="checkbox">
+                                </td>
+                                <td width="35%">
+                                    @item.Name
+                                </td>
+                                <td wisth="60%">
+                                    @item.Description
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        }
+    </div>
+</div>

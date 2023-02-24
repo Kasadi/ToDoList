@@ -1,0 +1,10 @@
+﻿@page
+@model ToDoList.Pages.CreateToDoListModel
+@{
+}
+<h1>Creating a List</h1>
+<form method="post"> 
+    <label asp-for="ToDoList.Name">Name: </label>
+    <input asp-for="ToDoList.Name" />
+    <input type="submit" />
+</form>
