@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
+using System.Data;
 
 #nullable disable
 
 namespace ToDoList.Migrations
 {
-    public partial class addTablesToDb : Migration
+    public partial class AddTablesToDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

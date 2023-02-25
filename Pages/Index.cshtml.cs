@@ -23,7 +23,7 @@ namespace ToDoList.Pages
 
         public void OnGet()
         {
-            ToDoLists = _db.ToDoLists.Include(t=>t.Items).ToList();
+            ToDoLists = _db.ToDoLists.Include(tdl=>tdl.Items).ToList();
         }
     }
 }

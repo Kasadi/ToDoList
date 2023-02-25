@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 using System.Diagnostics;
 using System.Text;
 using ToDoList.Model;
@@ -27,19 +28,26 @@ namespace ToDoList.Pages
         {
             ToDoLists = _db.ToDoLists.ToList();
         }
-        public async Task<IActionResult> OnPost(Item item, Model.ToDoList toDoList)
+        public async Task<IActionResult> OnPost(Item item, int listId)
         {
-            _db.Items.Add(item);
+
+            if(!_db.Items.Where(i=>i.Name.Contains(item.Name)).Any())
+            {
+                _db.Items.Add(item);
+            }
+            
 
             var list = _db.ToDoLists
                 .Include(l => l.Items.Where(i => i.ItemId == item.ItemId))
-                .FirstOrDefault(l => l.ToDoListId == toDoList.ToDoListId);
+                .FirstOrDefault(l => l.ToDoListId == listId);
 
             list.Items.Add(item);
 
 
-
             await _db.SaveChangesAsync();
+
+
+
             return RedirectToPage("Index");
         }
     }

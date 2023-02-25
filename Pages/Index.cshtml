@@ -23,7 +23,7 @@
                             <th>@list.Name</th>
                         </tr>
                         <tr width="10%">
-                        <th><a asp-page="CreateItem">Add Item</a></th>
+                        <th><a asp-page="CreateItem" asp-route-listId="@list.ToDoListId">Add new Item</a></th>
                         </tr>
                     </thead>
                     <tbody>

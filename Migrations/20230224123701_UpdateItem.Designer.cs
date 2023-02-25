@@ -11,8 +11,8 @@ using ToDoList.Model;
 namespace ToDoList.Migrations
 {
     [DbContext(typeof(ToDoListDbContext))]
-    [Migration("20230222170502_addTablesToDb")]
-    partial class AddTablesToDb
+    [Migration("20230224123701_UpdateItem")]
+    partial class UpdateItem
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -52,9 +52,12 @@ namespace ToDoList.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("ItemId");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Items");
                 });
