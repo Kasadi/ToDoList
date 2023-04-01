@@ -8,5 +8,14 @@
     <input asp-for="Item.Name" />
     <label asp-for="Item.Description">Description: </label>
     <input asp-for="Item.Description" />
+    <label asp-for="Item.Users">Responsible:</label>
+    <select multiple name="users[]">
+        @foreach (var user in Model.Users)
+        {
+            <option value="@user.Id">
+                @user.UserName
+            </option>
+        }
+    </select>
     <input type="submit" />
 </form>

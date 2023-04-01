@@ -1,28 +1,40 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
+using System.Security.Claims;
+using ToDoList.Data;
 using ToDoList.Model;
+
 
 namespace ToDoList.Pages
 {
+    [Authorize]
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
         private readonly ToDoListDbContext _db;
 
-        
-        public List<Model.ToDoList> ToDoLists { get; set; }
-        
+
+        public User User { get; set; }
+
 
         public IndexModel(ILogger<IndexModel> logger, ToDoListDbContext db)
         {
-            _logger = logger;
             _db = db;
         }
 
         public void OnGet()
         {
-            ToDoLists = _db.ToDoLists.Include(tdl=>tdl.Items).ToList();
+
+            Debug.WriteLine($"Ez a cucc: {HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value}");
+            User = _db.User
+                .Include(u => u.UniversalList)
+                    .ThenInclude(ul => ul.Items)
+                        .ThenInclude(i=>i.Users)
+                .Where(u => u.Id == HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value)
+                .FirstOrDefault();
+
         }
     }
 }

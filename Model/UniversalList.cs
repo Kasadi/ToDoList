@@ -3,14 +3,15 @@ using System.Reflection.Metadata.Ecma335;
 
 namespace ToDoList.Model
 {
-    public class ToDoList
+    public class UniversalList
     {
         [Key]
-        public int ToDoListId { get; set; }
+        public int Id { get; set; }
         [Required]
-        public string Name { get; set; }=string.Empty;
+        public string Name { get; set; } = string.Empty;
 
         public ICollection<Item>? Items { get; set; }
+        public User User { get; set; }
 
     }
 }

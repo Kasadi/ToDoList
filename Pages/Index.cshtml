@@ -10,12 +10,12 @@
 
         <div class="row pt-4">
             <div class="col-12">
-                <a asp-page="CreateToDoList" class="float-end btn btn-primary">Add New List</a>
+                <a asp-page="CreateList" class="float-end btn btn-primary">Add New List</a>
             </div>
         </div>
 
         @{
-            foreach (var list in Model.ToDoLists)
+            foreach (var list in Model.User.UniversalList)
             {
                 <table>
                     <thead>
@@ -23,21 +23,29 @@
                             <th>@list.Name</th>
                         </tr>
                         <tr width="10%">
-                        <th><a asp-page="CreateItem" asp-route-listId="@list.ToDoListId">Add new Item</a></th>
+                            <th><a asp-page="CreateItem" asp-route-listId="@list.Id">Add new Item</a></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var item in list.Items)
                         {
                             <tr>
-                                <td width="5%">
+                                <td width="20%">
                                     <input type="checkbox">
                                 </td>
-                                <td width="35%">
+                                <td width="20%">
                                     @item.Name
                                 </td>
-                                <td wisth="60%">
+                                <td width="20%">
                                     @item.Description
+                                </td>
+                                <td width="20%">
+                                    @foreach (var user in item.Users)
+                                    {
+                                        <input type="checkbox" name="@user.UserName" value="@user.UserName">
+                                        <label for="@user.UserName">@user.UserName</label>
+
+                                    }
                                 </td>
                             </tr>
                         }
